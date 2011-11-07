@@ -1,23 +1,31 @@
 #!/usr/bin/env escript
+%% -*- coding: utf-8; Mode: erlang; tab-width: 4; c-basic-offset: 4; indent-tabs-mode: nil -*-
+%% ex: set softtabstop=4 tabstop=4 shiftwidth=4 expandtab fileencoding=utf-8:
+
+%-define(TEST_MODULE, skewbinheap_eqc).
+-define(TEST_MODULE, skewbinheap_proper).
 
 test(N) ->
-  skewbinheap_eqc:test_min(N) and
-  skewbinheap_eqc:test_sort(N) and
-  skewbinheap_eqc:test_merge(N).
+    ?TEST_MODULE:test_min(N) and
+    ?TEST_MODULE:test_sort(N) and
+    ?TEST_MODULE:test_merge(N).
 
 main([String]) ->
-  N = try
-    list_to_integer(String)
-  catch
-    _:_ -> usage()
-  end,
+    N = try
+        list_to_integer(String)
+    catch
+        _:_ ->
+            usage()
+    end,
 
-  compile:file(skewbinheap),
-  compile:file(skewbinheap_eqc),
+    compile:file(skewbinheap),
+    compile:file(?TEST_MODULE),
 
-  test(N);
-main(_) -> main(["100"]).
+    test(N);
+
+main(_) ->
+    main(["100"]).
 
 usage() ->
-  io:format("usage: test [iterations]\n"),
-  halt(1).
+    io:format("usage: test [iterations]\n"),
+    halt(1).

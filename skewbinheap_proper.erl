@@ -1,9 +1,9 @@
 %% -*- coding: utf-8; Mode: erlang; tab-width: 4; c-basic-offset: 4; indent-tabs-mode: nil -*-
 %% ex: set softtabstop=4 tabstop=4 shiftwidth=4 expandtab fileencoding=utf-8:
 
--module(skewbinheap_eqc).
+-module(skewbinheap_proper).
 
--include_lib("eqc/include/eqc.hrl").
+-include_lib("proper/include/proper.hrl").
 
 -compile(export_all).
 
@@ -50,5 +50,7 @@ prop_merge() ->
             H = skewbinheap:merge(H1, H2),
             equals(ary(H), lists:sort(Xs ++ Ys))
         end).
+
 test_merge(N) ->
     quickcheck(numtests(N, prop_merge())).
+

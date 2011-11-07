@@ -4,8 +4,8 @@ Skew Binomial Heaps
 Skew Binomial Heaps offer amortized:
 
     O(1)      insertion
-    O(1)      merge
-    O(1)      lowest element
+    O(log(N)) merge
+    O(log(N)) lowest element
     O(log(N)) removing of lowest element
 
 This implementation is straight from Okasaki's PFDS.
